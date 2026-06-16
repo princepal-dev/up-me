@@ -1,10 +1,12 @@
 package org.prince.upme.security;
 
+import org.prince.upme.config.OAuth2LoginSuccessHandler;
 import org.prince.upme.security.jwt.AuthEntryPointJwt;
 import org.prince.upme.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -21,6 +23,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig {
   @Autowired private AuthEntryPointJwt unauthorizedHandler;
 
+  @Lazy @Autowired private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
   @Bean
   public AuthTokenFilter authenticationTokenFilter() {
     return new AuthTokenFilter();
@@ -35,16 +39,22 @@ public class SecurityConfig {
     http.csrf(
         csrf ->
             csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/auth/**"));
+                .ignoringRequestMatchers("/api/auth/**")
+                .ignoringRequestMatchers("/oauth2/**"));
 
     // Securing End points
     http.authorizeHttpRequests(
         req -> {
           req.requestMatchers("/api/csrf-tokens").permitAll();
+          req.requestMatchers("/oauth2/**").permitAll();
           req.anyRequest().authenticated();
         });
 
     // TODO: OAuth 2
+    http.oauth2Login(
+        oauth2 -> {
+          oauth2.successHandler(oAuth2LoginSuccessHandler);
+        });
 
     // TODO: Exception Handler
     http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));

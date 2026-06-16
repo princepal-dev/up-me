@@ -1,3 +1,10 @@
 package org.prince.upme.service;
 
-public interface UserService {}
+import org.prince.upme.model.User;
+
+import java.util.Optional;
+
+public interface UserService {
+    void registerUser(User newUser);
+    Optional<User> findByEmail(String email);
+}
