@@ -1,5 +1,8 @@
 package org.prince.upme.security;
 
+import org.prince.upme.security.jwt.AuthEntryPointJwt;
+import org.prince.upme.security.jwt.AuthTokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,11 +13,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+  @Autowired private AuthEntryPointJwt unauthorizedHandler;
+
+  @Bean
+  public AuthTokenFilter authenticationTokenFilter() {
+    return new AuthTokenFilter();
+  }
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     // Adding cors
@@ -36,8 +47,10 @@ public class SecurityConfig {
     // TODO: OAuth 2
 
     // TODO: Exception Handler
+    http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
 
     // TODO: Adding our custom auth filter
+    http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }

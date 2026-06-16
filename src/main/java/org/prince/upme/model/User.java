@@ -28,7 +28,7 @@ public class User {
 
   @NotNull
   @Size(max = 50)
-  private String username;
+  private String userName;
 
   @NotNull private String signUpMethod;
 
