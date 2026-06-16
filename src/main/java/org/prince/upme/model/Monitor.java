@@ -29,7 +29,7 @@ public class Monitor {
   private User user;
 
   @OneToMany (mappedBy = "")
-  private List<PingLogs> pingLogs;
+  private List<PingLog> pingLog;
 
   private boolean status;
 

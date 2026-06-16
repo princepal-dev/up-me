@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class PingLogs {
+public class PingLog {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "pingLogs")
+  @JoinColumn(name = "pingLog")
   private Monitor monitor;
 
   private int statusCode;
