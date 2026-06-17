@@ -25,7 +25,7 @@ public class MonitorServiceImpl implements MonitorService {
   @Autowired private MonitorRepository monitorRepository;
 
   @Override
-  public void updateStatus(Long id, boolean status) {
+  public void updateStatus(Long id, String status) {
     Monitor monitor =
         monitorRepository
             .findById(id)
@@ -98,7 +98,7 @@ public class MonitorServiceImpl implements MonitorService {
     response.setId(monitor.getId());
     response.setUrl(monitor.getUrl());
     response.setName(monitor.getName());
-    response.setActive(monitor.isStatus());
+    response.setIsActive(monitor.getStatus());
     response.setCreatedAt(monitor.getCreatedAt());
     return response;
   }
@@ -118,7 +118,7 @@ public class MonitorServiceImpl implements MonitorService {
     Monitor monitor = new Monitor();
     monitor.setUrl(monitorRequestDTO.getUrl());
     monitor.setName(monitorRequestDTO.getName());
-    monitor.setStatus(true);
+    monitor.setStatus("UP");
 
     user.setMonitorCount(user.getMonitorCount() + 1);
     userRepository.save(user);

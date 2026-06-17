@@ -6,7 +6,7 @@ import org.prince.upme.response.MonitorDTO;
 
 public interface MonitorService {
   MonitorDTO getMonitor(Long id);
-  void updateStatus(Long id, boolean status);
+  void updateStatus(Long id, String status);
   void deleteMonitor(Long id, String userName);
   ListMonitorDTO getAllMonitors(String userName);
   void updateMonitor(Long id, MonitorRequestDTO monitorRequestDTO);

@@ -9,6 +9,6 @@ public class MonitorDTO {
     private Long id;
     private String url;
     private String name;
-    private boolean isActive;
+    private String isActive;
     private LocalDateTime createdAt;
 }

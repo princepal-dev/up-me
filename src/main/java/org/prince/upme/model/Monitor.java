@@ -13,6 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "monitors")
 public class Monitor {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +29,16 @@ public class Monitor {
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany (mappedBy = "monitor")
+  @OneToMany(mappedBy = "monitor")
   private List<PingLog> pingLog;
 
-  private boolean status;
+  private String status;
 
+  private int baseIntervalMinutes = 10;
+
+  private Instant nextPingAt;
   private Instant lastPingedAt;
+
   @UpdateTimestamp private LocalDateTime updatedAt;
   @CreationTimestamp private LocalDateTime createdAt;
 }

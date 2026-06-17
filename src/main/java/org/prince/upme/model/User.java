@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Data
 @Entity
 @Table(
+    name = "users",
     uniqueConstraints = {
       @UniqueConstraint(columnNames = "email"),
       @UniqueConstraint(columnNames = "username")
@@ -32,6 +33,8 @@ public class User {
 
   @NotNull private String signUpMethod;
 
+  public User() {}
+
   public User(String email, String userName, String signUpMethod, String password) {
     this.email = email;
     this.userName = userName;
@@ -39,14 +42,13 @@ public class User {
     this.password = password;
   }
 
-  @NotNull
   @Size(min = 7, max = 50)
   private String password;
 
   @OneToMany(mappedBy = "user")
   private List<Monitor> monitors;
 
-  private int monitorCount;
+  @Transient private int monitorCount;
 
   @CreationTimestamp private LocalDateTime createdAt;
 

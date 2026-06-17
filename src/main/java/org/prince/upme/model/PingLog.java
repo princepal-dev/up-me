@@ -14,12 +14,14 @@ public class PingLog {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "ping-log")
+  @JoinColumn(name = "monitor_id")
   private Monitor monitor;
 
   private int statusCode;
 
   private boolean success;
+
+  private Long responseTimeMs;
 
   @CreationTimestamp private LocalDateTime pingedAt;
 }
