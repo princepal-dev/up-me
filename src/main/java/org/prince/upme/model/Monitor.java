@@ -28,7 +28,7 @@ public class Monitor {
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany (mappedBy = "")
+  @OneToMany (mappedBy = "monitor")
   private List<PingLog> pingLog;
 
   private boolean status;

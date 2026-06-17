@@ -14,7 +14,7 @@ public class PingLog {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "pingLog")
+  @JoinColumn(name = "ping-log")
   private Monitor monitor;
 
   private int statusCode;

@@ -46,6 +46,8 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Monitor> monitors;
 
+  private int monitorCount;
+
   @CreationTimestamp private LocalDateTime createdAt;
 
   @UpdateTimestamp private LocalDateTime updatedAt;
