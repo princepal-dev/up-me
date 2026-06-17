@@ -32,11 +32,18 @@ public class User {
 
   @NotNull private String signUpMethod;
 
+  public User(String email, String userName, String signUpMethod, String password) {
+    this.email = email;
+    this.userName = userName;
+    this.signUpMethod = signUpMethod;
+    this.password = password;
+  }
+
   @NotNull
   @Size(min = 7, max = 50)
   private String password;
 
-  @OneToMany (mappedBy = "user")
+  @OneToMany(mappedBy = "user")
   private List<Monitor> monitors;
 
   @CreationTimestamp private LocalDateTime createdAt;
