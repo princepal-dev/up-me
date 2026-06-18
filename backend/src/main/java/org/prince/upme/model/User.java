@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
     name = "users",
     uniqueConstraints = {
       @UniqueConstraint(columnNames = "email"),
-      @UniqueConstraint(columnNames = "username")
+      @UniqueConstraint(columnNames = "user_name")
     })
 public class User {
   @Id
@@ -29,6 +29,7 @@ public class User {
 
   @NotNull
   @Size(max = 50)
+  @Column (name = "user_name")
   private String userName;
 
   @NotNull private String signUpMethod;

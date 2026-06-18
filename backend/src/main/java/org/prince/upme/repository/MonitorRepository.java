@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MonitorRepository extends JpaRepository<Monitor, Long> {
-  @Query(value = "SELECT * from monitor where last_pinged_at <= now()", nativeQuery = true)
+  @Query(value = "SELECT * from monitors where last_pinged_at <= now()", nativeQuery = true)
   List<Monitor> findMonitorsDueForPing();
 }
