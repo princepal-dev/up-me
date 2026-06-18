@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PingLogsRepository extends JpaRepository<PingLog, Long> {
-    Page<PingLog> findByMonitorId(Long monitorId,
-                                  Pageable pageable);
+  Page<PingLog> findByMonitorId(Long monitorId,
+      Pageable pageable);
 }
